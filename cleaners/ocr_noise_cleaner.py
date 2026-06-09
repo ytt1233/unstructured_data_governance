@@ -32,5 +32,7 @@ class OCRNoiseCleaner(BaseCleaner):
                 "removed_noise_chars": len(matches)
             }
         )
+        
+        document.processing_snapshots["after_ocr_noise"] = cleaned_text
 
         return document

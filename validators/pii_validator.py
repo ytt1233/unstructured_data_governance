@@ -9,7 +9,9 @@ ID_CARD_PATTERN = re.compile(r'\b\d{17}[\dXx]\b')
 
 class PiiValidator(BaseValidator):
 
+    
     def validate(self, document: Document) -> Document:
+        print("pii validator begin")
 
         text = document.cleaned_text or ""
 
@@ -56,5 +58,5 @@ class PiiValidator(BaseValidator):
             "remaining_id_card_count": len(remaining_ids),
             "warnings": warnings
         }
-
+        print("pii validator begin")
         return document

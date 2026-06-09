@@ -1,183 +1,186 @@
 
 from schema.document import Document
 from metrics.definitions import METRIC_DEFINITIONS
+import os 
+import json
 
 
 class ReportGenerator:
 
-
+    def __init__(self, output_dir="output"):
+        self.output_dir = output_dir
+        os.makedirs(self.output_dir, exist_ok=True)
     def generate(self, document: Document):
+        # =========================
+        # 1. 组装报告数据（核心）
+        # =========================
+        report_data = self._build_report_data(document)
 
-        print("\n" + "=" * 60)
-        print("DOCUMENT GOVERNANCE REPORT")
-        print("=" * 60)
+        # =========================
+        # 2. 输出 Markdown
+        # =========================
+        md_path = self._write_markdown(document, report_data)
 
-        self._print_document_info(document)
+        # =========================
+        # 3. 输出 JSON
+        # =========================
+        json_path = self._write_json(document, report_data)
 
-        self._print_metadata(document)
+        # =========================
+        # 4. 仍然保留控制台输出（可选）
+        # =========================
+        self._print_console(report_data)
 
-        self._print_metrics(document)
+        print(f"\n[Report Generated]")
+        print(f"  Markdown: {md_path}")
+        print(f"  JSON    : {json_path}")
 
-        self._print_validation(document)
+        return report_data
+    
+    # =========================
+    # 构建统一报告结构
+    # =========================
+    def _build_report_data(self, document: Document):
 
-        self._print_audit_trail(document)
+        return {
+            "document_info": {
+                "doc_id": document.doc_id,
+                "file_name": document.file_name,
+                "file_type": document.file_type,
+                "pages": len(document.pages),
+                "raw_chars": len(document.raw_text),
+                "clean_chars": len(document.cleaned_text),
+            },
 
-        self._print_sample_records(document)
+            "metadata": {
+                "common": document.metadata.common,
+                "domain": document.metadata.domain,
+            },
 
-        print("\n" + "=" * 60)
+            "metrics": document.metrics,
 
-    # ==================================
-    # Document Info
-    # ==================================
-    def _print_document_info(self, document: Document):
+            "validation": {
+                "summary": self._build_validation_summary(document),
+                "details": document.validation_results,
+            },
 
-        print("\n[Document Info]")
+            "audit_trail": document.audit_trail,
 
-        print(f"  Doc ID      : {document.doc_id}")
-        print(f"  File Name   : {document.file_name}")
-        print(f"  File Type   : {document.file_type}")
-        print(f"  Pages       : {len(document.pages)}")
-        print(f"  Raw Chars   : {len(document.raw_text)}")
-        print(f"  Clean Chars : {len(document.cleaned_text)}")
-
-    # ==================================
-    # Metadata
-    # ==================================
-    def _print_metadata(self, document: Document):
-
-        print("\n[Metadata]")
-
-        print("\nCommon Metadata:")
-
-        for k, v in document.metadata.common.items():
-            print(f"  {k}: {v}")
-
-        print("\nDomain Metadata:")
-
-        for k, v in document.metadata.domain.items():
-            print(f"  {k}: {v}")
-
-    # ==================================
-    # Metrics
-    # ==================================
-    def _print_metrics(self, document: Document):
-
-        print("\n[Metrics]")
-
-        if not document.metrics:
-            print("  No metrics")
-            return
-
-        for metric_name, metric_data in document.metrics.items():
-
-            print(f"\n{metric_name}")
-
-            if isinstance(metric_data, dict):
-
-                for k, v in metric_data.items():
-                    print(f"  {k}: {v}")
-
-            else:
-                print(f"  {metric_data}")
-
-        print("\n[Metric Definitions]")
-
-        for k, v in METRIC_DEFINITIONS.items():
-            print(f'  {k}:')
-            for i, j in v.items():
-                if i != "interpretation": #内容太长，暂不打印
-                    print(f"    {i}: {j}")
-
-
-    # ==================================
-    # Validation
-    # ==================================
-    def _print_validation(self, document: Document):
-
-        print("\n[Validation Summary]")
+            "sample_records": document.sample_records,
+        }
+    
+    # =========================
+    # validation 汇总
+    # =========================
+    def _build_validation_summary(self, document: Document):
 
         pass_count = 0
         fail_count = 0
 
         for result in document.validation_results.values():
-
             if result.get("status") == "PASS":
                 pass_count += 1
             else:
                 fail_count += 1
 
-        print(f"  PASS: {pass_count}")
-        print(f"  FAIL: {fail_count}")
+        total = pass_count + fail_count
 
-        overall_status = (
-            "PASS"
-            if fail_count == 0
-            else "FAIL"
+        return {
+            "pass": pass_count,
+            "fail": fail_count,
+            "total": total,
+            "pass_rate": round(pass_count / total, 4) if total else 0,
+            "overall_status": "PASS" if fail_count == 0 else "FAIL"
+        }
+    # =========================
+    # Markdown 输出
+    # =========================
+    def _write_markdown(self, document: Document, report):
+
+        path = os.path.join(
+            self.output_dir,
+            f"{document.doc_id}_report.md"
         )
-        print(f"\n  Overall Status: {overall_status}")
-        print()
 
-        for validator_name, result in document.validation_results.items():
+        lines = []
 
-            status = result.get("status", "UNKNOWN")
+        lines.append("# Document Governance Report\n")
 
-            print(
-                f"  {validator_name:<20} {status}"
-            )
+        # -------- Document Info --------
+        info = report["document_info"]
+        lines.append("## 1. Document Info")
+        for k, v in info.items():
+            lines.append(f"- {k}: {v}")
+        lines.append("")
 
-        # ==========================
-        # Validation Details
-        # ==========================
-        print("\n[Validation Details]")
+        # -------- Metrics --------
+        lines.append("## 2. Metrics")
+        for metric_name, metric_data in report["metrics"].items():
+            lines.append(f"\n### {metric_name}")
+            if isinstance(metric_data, dict):
+                for k, v in metric_data.items():
+                    lines.append(f"- {k}: {v}")
+            else:
+                lines.append(str(metric_data))
 
-        for validator_name, result in document.validation_results.items():
+        lines.append("")
 
-            print(f"\n-  {validator_name}")
+        # -------- Validation --------
+        lines.append("## 3. Validation Summary")
+        v = report["validation"]["summary"]
+        for k, val in v.items():
+            lines.append(f"- {k}: {val}")
 
-            for k, v in result.items():
+        lines.append("")
 
-                if k == "status":
-                    continue
+        # -------- Audit (简化输出) --------
+        lines.append("## 4. Audit Trail (Top 10)")
+        for item in report["audit_trail"][:10]:
+            lines.append(f"- {item.get('action')} | {item}")
 
-                print(f"  {k}: {v}")
+        # 写文件
+        with open(path, "w", encoding="utf-8") as f:
+            f.write("\n".join(lines))
 
-    # ==================================
-    # Audit Trail
-    # ==================================
-    def _print_audit_trail(self, document: Document):
-
-        print("\n[Audit Trail]")
-
-        if not document.audit_trail:
-            print("  No audit trail")
-            return
-
-        for item in document.audit_trail:
-
-            action = item.get("action", "unknown")
-
-            print(f"\n- {action}")
-
-            for k, v in item.items():
-
-                if k == "action":
-                    continue
-
-                print(f"    {k}: {v}")
-
-    # ==================================
-    # Sample_Records
-    # ==================================
-    def _print_sample_records(self, document: Document):
+        return path
     
-        print("\n[Cleaning Samples]")
+    # =========================
+    # JSON 输出
+    # =========================
+    def _write_json(self, document: Document, report):
 
-        if not document.sample_records:
-            print("  No sample_records")
-            return
-        for record in document.sample_records:
-            for k, v in record.items():
-                if k == "type":
-                    print(f"- {v}")
-                else:
-                    print(f"  {k}: {v}")
+        path = os.path.join(
+            self.output_dir,
+            f"{document.doc_id}_report.json"
+        )
+
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(report, f, ensure_ascii=False, indent=2)
+
+        return path
+    
+    # =========================
+    # 控制台输出（保留你的习惯）
+    # =========================
+    def _print_console(self, report):
+
+        print("\n" + "=" * 60)
+        print("DOCUMENT GOVERNANCE REPORT (CONSOLE VIEW)")
+        print("=" * 60)
+
+        print("\n[Document Info]")
+        for k, v in report["document_info"].items():
+            print(f"  {k}: {v}")
+
+        print("\n[Metrics]")
+        for k, v in report["metrics"].items():
+            print(f"\n{k}")
+            if isinstance(v, dict):
+                for kk, vv in v.items():
+                    print(f"  {kk}: {vv}")
+            else:
+                print(v)
+
+        print("\n[Validation]")
+        for k, v in report["validation"]["summary"].items():
+            print(f"  {k}: {v}")    

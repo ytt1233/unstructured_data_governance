@@ -55,7 +55,7 @@ class JsonExporter(BaseExporter):
         # =========================
         file_name = (f"{document.doc_id}.json")
         output_file = (self.output_dir / file_name)
-        print(f'📄 保存文件: {output_file}')
+        print(f'\n📄 清洗后文件: {output_file}')
 
         with open(output_file,"w",encoding="utf-8") as f:
 

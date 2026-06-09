@@ -19,6 +19,10 @@ from validators.chunk_validator import ChunkValidator
 from validators.pii_validator import PiiValidator
 
 from metrics.cleaning_metric import CleaningMetric
+from metrics.text_quality_metric import TextQualityMetric
+from metrics.header_footer_metric import HeaderFooterMetric
+from metrics.pii_metric import PiiMetric
+from metrics.ocr_noise_metric import OCRNoiseMetric
 from report.report_generator import ReportGenerator
 
 from exporters.json_exporter import JsonExporter
@@ -62,7 +66,10 @@ class PipelineManager:
 
         # ========= Metrics =========
         self.metrics = [
-            CleaningMetric()
+            TextQualityMetric(),
+            HeaderFooterMetric(),
+            PiiMetric(),
+            OCRNoiseMetric(),
         ]
 
         # ========= Report =========
@@ -84,8 +91,6 @@ class PipelineManager:
         # 2. PARSE
         # =========================
         document = self.parser.parse(document)
-        # document.audit_trail.append({"step": "parse"})
-
         print("Parsed pages:", len(document.pages))
 
         # =========================
@@ -94,41 +99,35 @@ class PipelineManager:
         for extractor in self.extractors:
             document = extractor.extract(document)
 
-        # document.audit_trail.append({"step": "extract"})
         # =========================
         # 4. CLEAN
         # =========================
         for cleaner in self.cleaners:
             document = cleaner.clean(document)
-
-        # document.audit_trail.append({"step": "clean"})
+        print("123")
         # =========================
         # 5. CHUNK
         # =========================
         for chunker in self.chunkers:
             document = chunker.chunk(document)
-
-        # document.audit_trail.append({"step": "chunk"})
+        print("456")
         # =========================
         # 6. VALIDATE
         # =========================
         for validator in self.validators:
             document = validator.validate(document)
-
-        # document.audit_trail.append({"step": "validate"})
+        print("789")
         # =========================
         # 7. METRICS
         # =========================
         for metric in self.metrics:
             document = metric.calculate(document)
- 
-        # document.audit_trail.append({"step": "metrics"})
+
         # =========================
         # 8. REPORT
         # =========================
         self.reporter.generate(document)
-
-        # document.audit_trail.append({"step": "report"})
+        print("1011")
         # =========================
         # 9. EXPORT
         # =========================

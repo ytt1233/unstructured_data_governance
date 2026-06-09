@@ -26,10 +26,19 @@ class TextCleaner(BaseCleaner):
         #记录审计信息
         document.audit_trail.append(
             {
-                "action": "text_clean"
+                "action": "text_clean",
+                "operations": [
+                "unicode_normalization",
+                "remove_invisible_chars",
+                "normalize_spaces",
+                "normalize_blank_lines"
+    ]
             }
         )
-        print(f'基础文本清洗完成:\n{document.cleaned_text}')
+
+        document.processing_snapshots['after_text_clean'] = document.cleaned_text
+
+        # print(f'基础文本清洗完成:\n{document.cleaned_text}')
         return document
 
     def _clean_text(self, text: str) -> str:
@@ -60,6 +69,4 @@ class TextCleaner(BaseCleaner):
         """
         blank_line_pattern = r'(\n\s*){' + str(self.max_consecutive_blank_lines+1) + r',}'
         matches = re.findall(blank_line_pattern, text)
-        count = len(matches)
-        print(f'匹配到{count}行空白行')
         return re.sub(blank_line_pattern, '\n'*self.max_consecutive_blank_lines, text)

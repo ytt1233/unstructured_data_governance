@@ -38,6 +38,10 @@ class PDFParser(BaseParser):
                 "action": "pdf_parse"
             }
         )
+        
+        document.processing_snapshots['raw'] = (
+            document.raw_text
+        )
 
         pdf.close()
         return document

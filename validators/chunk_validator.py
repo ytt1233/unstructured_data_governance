@@ -3,15 +3,23 @@ from validators.base_validator import BaseValidator
 
 
 class ChunkValidator(BaseValidator):
+    
     # =========================
     # 对chunk的数量和内容进行校验
     # =========================
 
     def validate(self, document: Document) -> Document:
+        # =========================
+        # 读取 Metrics
+        # =========================
 
         chunks = document.chunks or []
 
-        chunk_count = len(chunks)
+        chunk_metrics = document.metrics.get("chunk", {})
+
+        chunk_count = chunk_metrics.get("chunk_count", len(chunks))
+
+        min_chunk_size = chunk_metrics.get("min_chunk_size", 0)
 
         empty_chunk_count = 0
 
@@ -33,21 +41,15 @@ class ChunkValidator(BaseValidator):
 
         elif empty_chunk_count > 0:
             status = "FAIL"
-        # =========================
-        # 读取 Metrics
-        # =========================
-
-        chunk_metrics = document.metrics.get("chunk", {})
-
-        min_chunk_size = chunk_metrics.get("min_chunk_size", 0)
-
+  
+        # 最小Chunk过小提醒
+        
         warnings = []
 
-        # 最小Chunk过小提醒
         if min_chunk_size > 0 and min_chunk_size < 50:
             warnings.append(
                 f"Small chunk detected: {min_chunk_size} chars"
-            )
+            ) 
 
         # =========================
         # 保存结果
