@@ -30,8 +30,7 @@ class OCRNoiseValidator(BaseValidator):
                 "noise_chars": 0,
                 "total_chars": 0,
                 "noise_ratio": 1.0,
-                "warnings": [],
-                "message": "Empty document."
+                "warnings": ["Empty document."]
             }
 
             return document

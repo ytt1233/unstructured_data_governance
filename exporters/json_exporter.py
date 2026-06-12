@@ -8,7 +8,7 @@ from exporters.base_exporter import BaseExporter
 
 class JsonExporter(BaseExporter):
 
-    def __init__(self, output_dir="example_docs/governed_docs"):
+    def __init__(self, output_dir="output/governed_docs"):
         self.output_dir = Path(output_dir)
 
         self.output_dir.mkdir(parents=True, exist_ok=True)
@@ -55,7 +55,7 @@ class JsonExporter(BaseExporter):
         # =========================
         file_name = (f"{document.doc_id}.json")
         output_file = (self.output_dir / file_name)
-        print(f'\n📄 清洗后文件: {output_file}')
+        print(f'\n📄 清洗后JSON文件: {output_file}')
 
         with open(output_file,"w",encoding="utf-8") as f:
 

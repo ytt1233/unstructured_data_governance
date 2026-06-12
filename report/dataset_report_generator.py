@@ -5,7 +5,7 @@ class DatasetReportGenerator:
 
     def __init__(
         self,
-        output_dir: str = "output"
+        output_dir: str = "output/reports"
     ):
         self.output_dir = output_dir
 

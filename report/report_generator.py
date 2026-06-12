@@ -1,14 +1,16 @@
 
 from schema.document import Document
 from metrics.definitions import METRIC_DEFINITIONS
+from pathlib import Path
 import os 
 import json
 
 
+
 class ReportGenerator:
 
-    def __init__(self, output_dir="output"):
-        self.output_dir = output_dir
+    def __init__(self, output_dir="output/reports"):
+        self.output_dir = Path(output_dir)
         os.makedirs(self.output_dir, exist_ok=True)
     def generate(self, document: Document):
         # =========================
@@ -112,9 +114,20 @@ class ReportGenerator:
         for k, v in info.items():
             lines.append(f"- {k}: {v}")
         lines.append("")
+        # -------- Metadata --------
+        metadata = report["metadata"]["domain"]
 
+        lines.append("## 2. Metadata")
+
+        for field in ['title', 'category']:
+
+            lines.append(
+                f"- {field}: "
+                f"{metadata.get(field, 'N/A')}"
+            )
+        lines.append("")
         # -------- Metrics --------
-        lines.append("## 2. Metrics")
+        lines.append("## 3. Metrics")
         for metric_name, metric_data in report["metrics"].items():
             lines.append(f"\n### {metric_name}")
             if isinstance(metric_data, dict):
@@ -126,7 +139,7 @@ class ReportGenerator:
         lines.append("")
 
         # -------- Validation --------
-        lines.append("## 3. Validation Summary")
+        lines.append("## 4. Validation Summary")
         v = report["validation"]["summary"]
         for k, val in v.items():
             lines.append(f"- {k}: {val}")
@@ -134,7 +147,7 @@ class ReportGenerator:
         lines.append("")
 
         # -------- Audit (简化输出) --------
-        lines.append("## 4. Audit Trail (Top 10)")
+        lines.append("## 5. Audit Trail (Top 10)")
         for item in report["audit_trail"][:10]:
             lines.append(f"- {item.get('action')} | {item}")
 
@@ -160,7 +173,7 @@ class ReportGenerator:
         return path
     
     # =========================
-    # 控制台输出（保留你的习惯）
+    # 控制台输出
     # =========================
     def _print_console(self, report):
 
@@ -172,6 +185,16 @@ class ReportGenerator:
         for k, v in report["document_info"].items():
             print(f"  {k}: {v}")
 
+        print("\n[Metadata]")
+
+        metadata = report["metadata"]["domain"]
+
+        for field in ['title', 'category']:
+
+            print(
+                f"  {field}: "
+                f"{metadata.get(field, 'N/A')}"
+            )
         print("\n[Metrics]")
         for k, v in report["metrics"].items():
             print(f"\n{k}")

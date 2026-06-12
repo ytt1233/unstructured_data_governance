@@ -1,0 +1,166 @@
+{
+  "document_info": {
+    "doc_id": "华锦股份：2025年年度报告摘要",
+    "file_name": "华锦股份：2025年年度报告摘要.PDF",
+    "file_type": ".PDF",
+    "pages": 3,
+    "raw_chars": 2912,
+    "clean_chars": 2815
+  },
+  "metadata": {
+    "common": {
+      "page_count": 3,
+      "parser": "PyMuPDF"
+    },
+    "domain": {
+      "title": "北方华锦化学工业股份有限公司2025年年度报告摘要",
+      "category": "规划"
+    }
+  },
+  "metrics": {
+    "chunk": {
+      "chunk_count": 7,
+      "avg_chunk_size": 430.43,
+      "min_chunk_size": 215,
+      "max_chunk_size": 500
+    },
+    "text_quality": {
+      "chars_before": 2912,
+      "chars_after": 2908,
+      "removed_chars": 4,
+      "char_reduction_rate": "0.14%",
+      "blank_lines_before": 3,
+      "blank_lines_after": 0,
+      "blank_lines_removed": 3
+    },
+    "header_footer": {
+      "removed_headers": 3,
+      "removed_footers": 0,
+      "total_pages": 3
+    },
+    "pii": {
+      "phone_count": 0,
+      "email_count": 1,
+      "id_card_count": 0,
+      "total_pii": 1
+    },
+    "ocr_noise": {
+      "text_length_before": 2827,
+      "text_length_after": 2820,
+      "removed_noise_chars": 7,
+      "noise_ratio": "0.25%"
+    }
+  },
+  "validation": {
+    "summary": {
+      "pass": 6,
+      "fail": 0,
+      "total": 6,
+      "pass_rate": 1.0,
+      "overall_status": "PASS"
+    },
+    "details": {
+      "metadata": {
+        "rule": "metadata_completeness",
+        "status": "PASS",
+        "missing_fields": [],
+        "warnings": []
+      },
+      "content_length": {
+        "rule": "minimum_content_length",
+        "status": "PASS",
+        "length": 2815,
+        "min_length": 100,
+        "warnings": []
+      },
+      "ocr_noise": {
+        "rule": "ocr_noise_detection",
+        "status": "PASS",
+        "noise_chars": 7,
+        "total_chars": 2815,
+        "noise_ratio": 0.0025,
+        "warnings": []
+      },
+      "header_footer": {
+        "rule": "repeated_line_detection",
+        "status": "PASS",
+        "suspicious_count": 2,
+        "suspicious_lines": [
+          {
+            "text": "0427-5855742",
+            "count": 4
+          },
+          {
+            "text": "0 不适用",
+            "count": 10
+          }
+        ],
+        "warnings": [
+          "2 repeated lines detected"
+        ]
+      },
+      "chunk": {
+        "rule": "chunk_integrity",
+        "status": "PASS",
+        "chunk_count": 7,
+        "empty_chunk_count": 0,
+        "warnings": []
+      },
+      "pii": {
+        "rule": "pii_masking_validation",
+        "status": "PASS",
+        "remaining_phone_count": 0,
+        "remaining_email_count": 0,
+        "remaining_id_card_count": 0,
+        "warnings": []
+      }
+    }
+  },
+  "audit_trail": [
+    {
+      "action": "pdf_parse"
+    },
+    {
+      "action": "metadata_extract"
+    },
+    {
+      "action": "text_clean",
+      "operations": [
+        "unicode_normalization",
+        "remove_invisible_chars",
+        "normalize_spaces",
+        "normalize_blank_lines"
+      ]
+    },
+    {
+      "action": "header_footer_clean",
+      "removed_headers": 3,
+      "removed_footers": 0,
+      "total_pages": 3
+    },
+    {
+      "action": "ocr_noise_clean",
+      "removed_noise_chars": 7
+    },
+    {
+      "action": "pii_clean",
+      "phone_count": 0,
+      "email_count": 1,
+      "id_card_count": 0
+    },
+    {
+      "action": "fixed_chunk",
+      "strategy": "fixed",
+      "configured_chunk_size": 500,
+      "overlap": 50,
+      "chunk_count": 7
+    }
+  ],
+  "sample_records": [
+    {
+      "type": "pii_email",
+      "before": "huajincorp@163.com",
+      "after": "h***@163.com"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import os
 from typing import List
+from pathlib import Path
 
 from pipeline.pipeline_manager import PipelineManager
 from schema.document import Document
@@ -30,7 +31,7 @@ class DatasetRunner:
         for idx, file_path in enumerate(files):
 
             try:
-                print(f"\n[{idx+1}/{len(files)}] Processing: {file_path}")
+                print(f"\n[{idx+1}/{len(files)}] Processing: {Path(file_path)}")
 
                 document = self.pipeline.run(file_path)
 

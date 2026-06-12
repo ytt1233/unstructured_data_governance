@@ -26,6 +26,7 @@ from metrics.ocr_noise_metric import OCRNoiseMetric
 from report.report_generator import ReportGenerator
 
 from exporters.json_exporter import JsonExporter
+from exporters.jsonl_exporter import JsonlExporter
 
 
 class PipelineManager:
@@ -75,8 +76,11 @@ class PipelineManager:
         # ========= Report =========
         self.reporter = ReportGenerator()
 
-        # ========= Export =========
-        self.exporter = JsonExporter()
+        # ========= Exports =========
+        self.exporters = [
+            JsonExporter(),
+            JsonlExporter(),
+        ]
     def run(self, file_path: str):
 
         # =========================
@@ -85,13 +89,10 @@ class PipelineManager:
         document = self.loader.load(file_path)
         # document.audit_trail.append({"step": "load"})
 
-        print("Loaded:", document.file_name)
-
         # =========================
         # 2. PARSE
         # =========================
         document = self.parser.parse(document)
-        print("Parsed pages:", len(document.pages))
 
         # =========================
         # 3. EXTRACT (metadata must be BEFORE clean/chunk)
@@ -104,19 +105,19 @@ class PipelineManager:
         # =========================
         for cleaner in self.cleaners:
             document = cleaner.clean(document)
-        print("123")
+
         # =========================
         # 5. CHUNK
         # =========================
         for chunker in self.chunkers:
             document = chunker.chunk(document)
-        print("456")
+
         # =========================
         # 6. VALIDATE
         # =========================
         for validator in self.validators:
             document = validator.validate(document)
-        print("789")
+
         # =========================
         # 7. METRICS
         # =========================
@@ -127,10 +128,11 @@ class PipelineManager:
         # 8. REPORT
         # =========================
         self.reporter.generate(document)
-        print("1011")
+  
         # =========================
         # 9. EXPORT
         # =========================
-        self.exporter.export(document)
+        for exporter in self.exporters:
+            exporter.export(document)
 
         return document
