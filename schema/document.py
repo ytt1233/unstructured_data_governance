@@ -43,3 +43,5 @@ class Document:
     first_page_layout: dict = field(default_factory=dict)
 
     sample_records: List[Dict] = field(default_factory=list)
+
+    processing_snapshots: dict = field(default_factory=dict)

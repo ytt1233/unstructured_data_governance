@@ -108,6 +108,8 @@ class HeaderFooterCleaner(BaseCleaner):
                 "total_pages": len(document.pages),
             }
         )
+
+        document.processing_snapshots["after_header_footer"] = document.cleaned_text
         # print("Header Footer Cleaner:")
         # for page in document.pages:
         #     print(page.text)

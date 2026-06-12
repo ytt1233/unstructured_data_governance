@@ -70,6 +70,8 @@ class PiiCleaner(BaseCleaner):
             }
         )
 
+        document.processing_snapshots["after_pii"] = document.cleaned_text
+
         return document
     # ==================================
     # 核心脱敏逻辑

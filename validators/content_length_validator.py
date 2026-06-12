@@ -28,7 +28,7 @@ class ContentLengthValidator:
         }
 
         if status == "FAIL":
-            document.validation_results["content_length"]["message"] = (
+            document.validation_results["content_length"]["warnings"] = (
                 "Document content is too short."
             )
 

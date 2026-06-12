@@ -16,6 +16,5 @@ class PDFLoader(BaseLoader):
             file_type=path.suffix,
             file_path=str(path),
         )
-        print(f"Loading {file_path}")
 
         return document

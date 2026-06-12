@@ -72,8 +72,7 @@ class FixedChunker(BaseChunker):
                 "action": "fixed_chunk",
                 "strategy": "fixed",
                 "configured_chunk_size": self.chunk_size,
-                "configured_chunk_size": 500,
-                "overlap": 50,
+                "overlap": self.overlap,
                 "chunk_count": chunk_count
             }
         )
