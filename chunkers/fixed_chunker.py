@@ -14,6 +14,16 @@ class FixedChunker(BaseChunker):
             text = page.text
             if not text:
                 continue
+            if document.file_type == ".pdf":
+                source_location = (
+                    f"page_{page.page_num}"
+                )
+            elif document.file_type == ".docx":
+                source_location = "document"
+            else:
+                source_location = (
+                    f"line_{page.page_num}"
+                )
             for i in range(0, len(text), step):
                 chunk_text = text[i:i+self.chunk_size]
                 chunks.append(
@@ -22,6 +32,7 @@ class FixedChunker(BaseChunker):
                         text=chunk_text,
                         source_doc_id=document.doc_id,
                         page_num=page.page_num,
+                        source_location=source_location,
                         metadata={
                             "chunk_index": len(chunks),
                             "chunk_size": len(chunk_text)

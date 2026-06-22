@@ -47,6 +47,8 @@ class JsonExporter(BaseExporter):
 
                     "page_num": chunk.page_num,
 
+                    "source_location": chunk.source_location,
+
                     "metadata": chunk.metadata
                 }
             )

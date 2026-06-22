@@ -10,4 +10,5 @@ class Chunk:
     # 可选字段
     source_doc_id: Optional[str] = None  # 来源文档
     page_num: Optional[int] = None       # 页码
+    source_location: str = ""  #来源位置
     embedding: Optional[List[float]] = None  # 预留给后续RAG

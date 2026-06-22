@@ -1,6 +1,7 @@
 from ingestion.pdf_loader import PDFLoader
 
 from parser.pdf_parser import PDFParser
+from parser.parser_factory import ParserFactory
 
 from extractors.metadata_extractor import MetadataExtractor
 
@@ -8,6 +9,7 @@ from cleaners.text_cleaner import TextCleaner
 from cleaners.header_footer_cleaner import HeaderFooterCleaner
 from cleaners.pii_cleaner import PiiCleaner
 from cleaners.ocr_noise_cleaner import OCRNoiseCleaner
+from cleaners.toc_cleaner import TOCCleaner
 
 from chunkers.fixed_chunker import FixedChunker
 
@@ -46,6 +48,7 @@ class PipelineManager:
         self.cleaners = [
             TextCleaner(),
             HeaderFooterCleaner(n_lines=3, min_repeat=2),
+            TOCCleaner(),
             OCRNoiseCleaner(),
             PiiCleaner()
         ]
@@ -92,7 +95,10 @@ class PipelineManager:
         # =========================
         # 2. PARSE
         # =========================
-        document = self.parser.parse(document)
+        parser = ParserFactory.get_parser(
+            document.file_type
+        )
+        document = parser.parse(document)
 
         # =========================
         # 3. EXTRACT (metadata must be BEFORE clean/chunk)

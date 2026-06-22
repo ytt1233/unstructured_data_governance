@@ -6,6 +6,11 @@ from pipeline.pipeline_manager import PipelineManager
 from schema.document import Document
 from report.dataset_report_generator import DatasetReportGenerator
 
+SUPPORTED_TYPES = (
+    ".pdf",
+    ".docx",
+    ".txt"
+)
 
 class DatasetRunner:
 
@@ -64,7 +69,7 @@ class DatasetRunner:
 
             for f in filenames:
 
-                if f.lower().endswith(".pdf"):
+                if f.lower().endswith(SUPPORTED_TYPES):
 
                     files.append(os.path.join(root, f))
 
@@ -199,6 +204,8 @@ class DatasetRunner:
         headers_removed = 0
         footers_removed = 0
 
+        toc_removed = 0
+
         pii_removed = 0
 
         ocr_noise_removed = 0
@@ -243,6 +250,19 @@ class DatasetRunner:
                 "removed_footers",
                 0
             )
+            # ==========================
+            # toc
+            # ==========================
+            toc_metric = metrics.get(
+                "toc",
+                {}
+            )
+
+            toc_removed += toc_metric.get(
+                "removed_toc_lines",
+                0
+            )
+
             # ==========================
             # pii
             # ==========================
@@ -300,6 +320,9 @@ class DatasetRunner:
 
             "footers_removed":
                 footers_removed,
+
+            "toc_lines_removed":
+                toc_removed,
 
             "pii_removed":
                 pii_removed,

@@ -1,0 +1,155 @@
+{
+  "doc_id": "test",
+  "file_name": "test.txt",
+  "file_type": ".txt",
+  "metadata": {
+    "common": {
+      "page_count": 1,
+      "parser": "txt"
+    },
+    "domain": {
+      "title": "这是第一段。",
+      "category": "未知"
+    }
+  },
+  "metrics": {
+    "toc": {
+      "removed_toc_lines": 0
+    },
+    "chunk": {
+      "chunk_count": 1,
+      "avg_chunk_size": 435.0,
+      "min_chunk_size": 435,
+      "max_chunk_size": 435
+    },
+    "text_quality": {
+      "chars_before": 441,
+      "chars_after": 436,
+      "removed_chars": 5,
+      "char_reduction_rate": "1.13%",
+      "blank_lines_before": 5,
+      "blank_lines_after": 0,
+      "blank_lines_removed": 5
+    },
+    "header_footer": {
+      "removed_headers": 0,
+      "removed_footers": 0,
+      "total_pages": 1
+    },
+    "pii": {
+      "phone_count": 1,
+      "email_count": 1,
+      "id_card_count": 0,
+      "total_pii": 2
+    },
+    "ocr_noise": {
+      "text_length_before": 436,
+      "text_length_after": 436,
+      "removed_noise_chars": 0,
+      "noise_ratio": "0.0%"
+    }
+  },
+  "validation_results": {
+    "metadata": {
+      "rule": "metadata_completeness",
+      "status": "PASS",
+      "missing_fields": [],
+      "warnings": [
+        "Category could not be determined"
+      ]
+    },
+    "content_length": {
+      "rule": "minimum_content_length",
+      "status": "PASS",
+      "length": 435,
+      "min_length": 100,
+      "warnings": []
+    },
+    "ocr_noise": {
+      "rule": "ocr_noise_detection",
+      "status": "PASS",
+      "noise_chars": 0,
+      "total_chars": 435,
+      "noise_ratio": 0.0,
+      "warnings": []
+    },
+    "header_footer": {
+      "rule": "repeated_line_detection",
+      "status": "PASS",
+      "suspicious_count": 0,
+      "suspicious_lines": [],
+      "warnings": []
+    },
+    "chunk": {
+      "rule": "chunk_integrity",
+      "status": "PASS",
+      "chunk_count": 1,
+      "empty_chunk_count": 0,
+      "warnings": []
+    },
+    "pii": {
+      "rule": "pii_masking_validation",
+      "status": "PASS",
+      "remaining_phone_count": 0,
+      "remaining_email_count": 0,
+      "remaining_id_card_count": 0,
+      "warnings": []
+    }
+  },
+  "audit_trail": [
+    {
+      "action": "txt_parse"
+    },
+    {
+      "action": "metadata_extract"
+    },
+    {
+      "action": "text_clean",
+      "operations": [
+        "unicode_normalization",
+        "remove_invisible_chars",
+        "normalize_spaces",
+        "normalize_blank_lines"
+      ]
+    },
+    {
+      "action": "header_footer_clean",
+      "removed_headers": 0,
+      "removed_footers": 0,
+      "total_pages": 1
+    },
+    {
+      "action": "toc_clean",
+      "removed_toc_lines": 0
+    },
+    {
+      "action": "ocr_noise_clean",
+      "removed_noise_chars": 0
+    },
+    {
+      "action": "pii_clean",
+      "phone_count": 1,
+      "email_count": 1,
+      "id_card_count": 0
+    },
+    {
+      "action": "fixed_chunk",
+      "strategy": "fixed",
+      "configured_chunk_size": 500,
+      "overlap": 50,
+      "chunk_count": 1
+    }
+  ],
+  "chunks": [
+    {
+      "chunk_id": "dc6a12ba-05d8-4465-a697-0f7cde8c642b",
+      "text": "这是第一段。\n这是第二段。\n这是第三段。\n联系电话:138****5678\n邮箱:a***@test.com\n“端午悬艾”是传承千年的民俗习惯,古人将艾草悬于门楣,依靠其辛香之气辟秽驱虫、祈愿阖家平安。但大多数人只知晓艾草的节庆用途,节后风干的艾草常常直接丢弃。殊不知,这束随手可得的艾草是中医临床常用中药材,就此丢弃十分可惜。\n端午时节暑热升腾、湿邪弥漫,湿热二气交织缠绕,极易侵扰人体,诱发头重如裹、肢体困重、食欲不振、脘腹胀满等不适,部分人群还会口渴却不欲饮水、饮水难解内燥,伴随心烦身热。这个时节养生,务必恪守清热不伤阳,祛湿不伤阴的准则。\n现代药理研究证实,艾草拥有抗炎抗氧化、调节人体免疫、驱赶蚊虫等多重作用;其挥发油具备明确抗菌效力,可有效抑制金黄色葡萄球菌等常见致病菌。中医视角下,艾叶温经散寒、芳香辟秽,养生外用、配伍内服皆可发挥价值。而民俗里习惯倒挂艾草,一方面暗含“端午剑”驱邪纳祥的美好寓意,另一方面也能让艾草内部有效成分回流蓄积,保留更好药效。",
+      "page_num": 1,
+      "source_location": "line_1",
+      "metadata": {
+        "chunk_index": 0,
+        "chunk_size": 435
+      }
+    }
+  ]
+}

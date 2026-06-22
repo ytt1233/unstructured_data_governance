@@ -2,29 +2,30 @@
 
 ## Dataset Summary
 
-- **total_files**: 2
+- **total_files**: 3
 - **failed_files**: 0
 - **success_rate**: 1.0
 
 ## Validation Summary
 
-- **metadata**: PASS (2/2)
-- **content_length**: PASS (2/2)
-- **ocr_noise**: PASS (2/2)
-- **header_footer**: PASS (2/2)
-- **chunk**: PASS (2/2)
-- **pii**: PASS (2/2)
+- **metadata**: PASS (3/3)
+- **content_length**: PASS (3/3)
+- **ocr_noise**: PASS (3/3)
+- **header_footer**: PASS (3/3)
+- **chunk**: PASS (3/3)
+- **pii**: PASS (3/3)
 
 ## Governance Effectiveness
 
-- **characters_removed**: 725
-- **blank_lines_removed**: 261
-- **headers_removed**: 20
+- **characters_removed**: 36
+- **blank_lines_removed**: 34
+- **headers_removed**: 31
 - **footers_removed**: 0
-- **pii_removed**: 1
-- **ocr_noise_removed**: 20
-- **chunks_generated**: 37
-- **avg_chunk_size**: 406.33
+- **toc_lines_removed**: 22
+- **pii_removed**: 2
+- **ocr_noise_removed**: 4
+- **chunks_generated**: 65
+- **avg_chunk_size**: 406.08
 
 ## Dataset Insights
 

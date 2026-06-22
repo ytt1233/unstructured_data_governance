@@ -22,7 +22,7 @@ class HeaderFooterCleaner(BaseCleaner):
         """
         清洗 Document.pages 中的页眉页脚
         """
-        if document.pages is None:
+        if not document.pages:
             return document 
         
         #收集页眉页脚候选

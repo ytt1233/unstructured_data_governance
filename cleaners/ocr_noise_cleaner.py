@@ -12,27 +12,33 @@ class OCRNoiseCleaner(BaseCleaner):
 
     def clean(self, document: Document) -> Document:
 
-        text = document.cleaned_text
+        total_removed = 0
 
-        if not text:
-            return document
+        for page in document.pages:
 
-        matches = self.NOISE_PATTERN.findall(text)
+            matches = self.NOISE_PATTERN.findall(
+                page.text
+            )
 
-        cleaned_text = self.NOISE_PATTERN.sub(
-            "",
-            text
+            total_removed += len(matches)
+
+            page.text = self.NOISE_PATTERN.sub(
+                "",
+                page.text
+            )
+
+        document.cleaned_text = "\n".join(
+            page.text
+            for page in document.pages
         )
-
-        document.cleaned_text = cleaned_text
 
         document.audit_trail.append(
             {
                 "action": "ocr_noise_clean",
-                "removed_noise_chars": len(matches)
+                "removed_noise_chars": total_removed
             }
         )
         
-        document.processing_snapshots["after_ocr_noise"] = cleaned_text
+        document.processing_snapshots["after_ocr_noise"] = document.cleaned_text
 
         return document
