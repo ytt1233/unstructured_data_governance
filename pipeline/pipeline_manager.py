@@ -19,6 +19,7 @@ from validators.ocr_noise_validator import OCRNoiseValidator
 from validators.header_footer_validators import HeaderFooterValidator
 from validators.chunk_validator import ChunkValidator
 from validators.pii_validator import PiiValidator
+from validators.toc_validator import TOCValidator
 
 from metrics.cleaning_metric import CleaningMetric
 from metrics.text_quality_metric import TextQualityMetric
@@ -64,6 +65,7 @@ class PipelineManager:
             ContentLengthValidator(min_length=100),
             OCRNoiseValidator(),
             HeaderFooterValidator(),
+            TOCValidator(),
             ChunkValidator(),
             PiiValidator()
         ]

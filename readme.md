@@ -25,10 +25,16 @@ Document / Metadata / Chunk
 
 ✓ 可扩展Parser/Cleaner/Validator插件机制 
 
+✓ 多格式文档治理能力
+
+✓ Chunk来源追踪与溯源支持
+
+✓ 目录自动识别与清理
+
 
 # 3️⃣ 系统架构图（Architecture）
 
-<img src="./img/架构图.svg" width="400" height="300"> 
+<img src="./img/架构图.svg" width="600" height="400"> 
 
 
 # 4️⃣ 核心能力（Core Capabilities）
@@ -63,6 +69,20 @@ Document / Metadata / Chunk
 页眉页脚治理后：
 
 <img src="./img/页眉页脚去除后.png" width="400" height="300"> 
+
+### - 目录清洗 
+
+作用：自动识别并清理目录，减少知识库冗余信息。 
+
+目录清洗前： 
+
+<img src="./img/目录清洗前.png" width="400" height="300"> 
+
+目录清洗后： 
+
+<img src="./img/目录清洗后.png" width="400" height="300"> 
+
+
 
 ### - OCR乱码治理
 
@@ -108,15 +128,16 @@ chunk生成后：
 
 - 单个文档治理结果校验信息
 
-<img src="./img/单个文档数据治理质量校验1.png" width="400" height="300"> 
+<img src="./img/单个文档治理结果校验信息1.png" width="400" height="300"> 
 
-<img src="./img/单个文档数据治理质量校验2.png" width="400" height="300"> 
+<img src="./img/单个文档治理结果校验信息2.png" width="400" height="300"> 
  
  
  
 - 数据集整体治理结果校验信息
 
-<img src="./img/数据治理效果数据集.png" width="400" height="300">
+<img src="./img/数据集整体治理结果校验信息.png" width="400" height="300"> 
+
 
 ## 6、数据治理全链路审计 
 作用：记录文档治理全流程操作轨迹，实现治理过程可追溯、可审计、可复现，便于问题定位与质量分析。
@@ -130,7 +151,10 @@ chunk生成后：
 量化评估数据治理效果，
 为治理优化和质量监控提供数据支撑。
 
-<img src="./img/数据治理指标统计.png" width="400" height="300">
+<img src="./img/治理指标统计1.png" width="400" height="300"> 
+
+<img src="./img/治理指标统计2.png" width="400" height="300"> 
+
 
 # 5️⃣ 快速开始（Quick Start）
 
@@ -159,8 +183,9 @@ example_docs/raw_docs/
 
 ```text
 example_docs/raw_docs/
-├── 华锦股份：2025年年度报告摘要.PDF
+├── 认知智能技术与产业研究报告2023.PDF
 ├── 盈康生命：2026年一季度报告.PDF
+├── 2024年第二季度战略复盘暨第三季度工作部署会议纪要.docx
 ```
 ## 4、运行流水线 (Run Pipeline)
 
@@ -174,13 +199,15 @@ python main.py --input example_docs/raw_docs
 ```text
 ├─ output/
 │   ├─ reports/
-│   │   ├─ 华锦股份：2025年年度报告摘要_report.json
-│   │   ├─ 华锦股份：2025年年度报告摘要_report.md 
+│   │   ├─ 认知智能技术与产业研究报告2023_report.json
+│   │   ├─ 认知智能技术与产业研究报告2023_report.md 
 │   │   ├─ 盈康生命：2026年一季度报告_report.json
 │   │   ├─ 盈康生命：2026年一季度报告_report.md
+│   │   ├─ 2024年第二季度战略复盘暨第三季度工作部署会议纪要_report.json
+│   │   ├─ 2024年第二季度战略复盘暨第三季度工作部署会议纪要_report.md
 │   │   └─ dataset_report.md
 ```
-**其中"华锦股份：2025年年度报告摘要_report"为单个文件治理结果** 
+**其中"认知智能技术与产业研究报告2023_report"为单个文件治理结果** 
 
 输出内容包括：
 
@@ -197,9 +224,6 @@ python main.py --input example_docs/raw_docs
 
 <img src="./img/单文件报告3.png" width="400" height="300"> 
 
-<img src="./img/单文件报告4.png" width="400" height="300">
-
-
 
 
 **其中"dataset_report.md"为整个数据集治理结果** 
@@ -213,11 +237,9 @@ python main.py --input example_docs/raw_docs
 
 截图如下：
 
-<img src="./img/数据集报告1.png" width="400" height="300"> 
+<img src="./img/数据集治理结果1.png" width="400" height="300"> 
 
-<img src="./img/数据集报告2.png" width="400" height="300"> 
-
-<img src="./img/数据集报告3.png" width="400" height="300"> 
+<img src="./img/数据集治理结果2.png" width="400" height="300"> 
 
 
 # 6️⃣ jsonl 输出（Output Example）
@@ -288,17 +310,25 @@ V1.0 — Core Governance Pipeline
 ✓ Document Report
 ✓ Dataset Report
 
-V1.1 — Multi-Format Support
-□ TOC Cleaner
-□ TXT Parser
-□ DOCX Parser
+V1.1 — Multi-Format Governance
+✓ TOC Cleaner
+✓ TXT Parser
+✓ DOCX Parser
+✓ Chunk Source Tracking
 
-V1.2 — Advanced Document Understanding
+V1.2 — Corpus Governance
+□ Exact Duplicate Detection
+□ Cross-format Document Deduplication
+□ Document Hash
+□ Corpus Metrics
+□ Corpus Report
+
+V1.3 — Advanced Document Understanding
 □ Table Extraction
 □ Layout Analysis
 □ Figure Detection
 
-V1.3 — Governance Persistence
+V1.4 — Governance Persistence
 □ Audit Trail Persistence
 □ Governance History Tracking
 □ Incremental Processing

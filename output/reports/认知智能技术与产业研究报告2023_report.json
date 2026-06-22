@@ -56,9 +56,9 @@
   },
   "validation": {
     "summary": {
-      "pass": 6,
+      "pass": 7,
       "fail": 0,
-      "total": 6,
+      "total": 7,
       "pass_rate": 1.0,
       "overall_status": "PASS"
     },
@@ -90,6 +90,10 @@
         "suspicious_count": 0,
         "suspicious_lines": [],
         "warnings": []
+      },
+      "toc": {
+        "status": "PASS",
+        "remaining_toc_lines": 0
       },
       "chunk": {
         "rule": "chunk_integrity",

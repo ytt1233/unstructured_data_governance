@@ -50,9 +50,9 @@
 - noise_ratio: 0.02%
 
 ## 4. Validation Summary
-- pass: 6
+- pass: 7
 - fail: 0
-- total: 6
+- total: 7
 - pass_rate: 1.0
 - overall_status: PASS
 

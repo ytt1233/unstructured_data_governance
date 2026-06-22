@@ -6,7 +6,7 @@
 - file_type: .PDF
 - pages: 11
 - raw_chars: 11595
-- clean_chars: 10554
+- clean_chars: 10541
 
 ## 2. Metadata
 - title: 盈康生命科技股份有限公司
@@ -15,9 +15,12 @@
 
 ## 3. Metrics
 
+### toc
+- removed_toc_lines: 0
+
 ### chunk
 - chunk_count: 30
-- avg_chunk_size: 382.23
+- avg_chunk_size: 381.8
 - min_chunk_size: 23
 - max_chunk_size: 500
 
@@ -48,9 +51,9 @@
 - noise_ratio: 0.12%
 
 ## 4. Validation Summary
-- pass: 6
+- pass: 7
 - fail: 0
-- total: 6
+- total: 7
 - pass_rate: 1.0
 - overall_status: PASS
 
@@ -59,6 +62,7 @@
 - metadata_extract | {'action': 'metadata_extract'}
 - text_clean | {'action': 'text_clean', 'operations': ['unicode_normalization', 'remove_invisible_chars', 'normalize_spaces', 'normalize_blank_lines']}
 - header_footer_clean | {'action': 'header_footer_clean', 'removed_headers': 17, 'removed_footers': 0, 'total_pages': 11}
+- toc_clean | {'action': 'toc_clean', 'removed_toc_lines': 0}
 - ocr_noise_clean | {'action': 'ocr_noise_clean', 'removed_noise_chars': 13}
 - pii_clean | {'action': 'pii_clean', 'phone_count': 0, 'email_count': 0, 'id_card_count': 0}
 - fixed_chunk | {'action': 'fixed_chunk', 'strategy': 'fixed', 'configured_chunk_size': 500, 'overlap': 50, 'chunk_count': 30}

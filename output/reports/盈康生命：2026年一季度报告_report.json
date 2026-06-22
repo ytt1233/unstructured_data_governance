@@ -5,7 +5,7 @@
     "file_type": ".PDF",
     "pages": 11,
     "raw_chars": 11595,
-    "clean_chars": 10554
+    "clean_chars": 10541
   },
   "metadata": {
     "common": {
@@ -18,9 +18,12 @@
     }
   },
   "metrics": {
+    "toc": {
+      "removed_toc_lines": 0
+    },
     "chunk": {
       "chunk_count": 30,
-      "avg_chunk_size": 382.23,
+      "avg_chunk_size": 381.8,
       "min_chunk_size": 23,
       "max_chunk_size": 500
     },
@@ -53,9 +56,9 @@
   },
   "validation": {
     "summary": {
-      "pass": 6,
+      "pass": 7,
       "fail": 0,
-      "total": 6,
+      "total": 7,
       "pass_rate": 1.0,
       "overall_status": "PASS"
     },
@@ -69,27 +72,23 @@
       "content_length": {
         "rule": "minimum_content_length",
         "status": "PASS",
-        "length": 10554,
+        "length": 10541,
         "min_length": 100,
         "warnings": []
       },
       "ocr_noise": {
         "rule": "ocr_noise_detection",
         "status": "PASS",
-        "noise_chars": 13,
-        "total_chars": 10554,
-        "noise_ratio": 0.0012,
+        "noise_chars": 0,
+        "total_chars": 10541,
+        "noise_ratio": 0.0,
         "warnings": []
       },
       "header_footer": {
         "rule": "repeated_line_detection",
         "status": "PASS",
-        "suspicious_count": 26,
+        "suspicious_count": 25,
         "suspicious_lines": [
-          {
-            "text": "□是 否",
-            "count": 3
-          },
           {
             "text": "496,394,394.50",
             "count": 3
@@ -115,7 +114,7 @@
             "count": 3
           },
           {
-            "text": "适用 □不适用",
+            "text": "适用 不适用",
             "count": 3
           },
           {
@@ -123,13 +122,21 @@
             "count": 3
           },
           {
-            "text": "□适用 不适用",
+            "text": "适用 不适用",
             "count": 7
+          },
+          {
+            "text": "境内自然人",
+            "count": 6
           }
         ],
         "warnings": [
-          "26 repeated lines detected"
+          "25 repeated lines detected"
         ]
+      },
+      "toc": {
+        "status": "PASS",
+        "remaining_toc_lines": 0
       },
       "chunk": {
         "rule": "chunk_integrity",
@@ -171,6 +178,10 @@
       "removed_headers": 17,
       "removed_footers": 0,
       "total_pages": 11
+    },
+    {
+      "action": "toc_clean",
+      "removed_toc_lines": 0
     },
     {
       "action": "ocr_noise_clean",

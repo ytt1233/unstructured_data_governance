@@ -12,20 +12,21 @@
 - **content_length**: PASS (3/3)
 - **ocr_noise**: PASS (3/3)
 - **header_footer**: PASS (3/3)
+- **toc**: PASS (3/3)
 - **chunk**: PASS (3/3)
 - **pii**: PASS (3/3)
 
 ## Governance Effectiveness
 
-- **characters_removed**: 36
-- **blank_lines_removed**: 34
-- **headers_removed**: 31
+- **characters_removed**: 752
+- **blank_lines_removed**: 287
+- **headers_removed**: 48
 - **footers_removed**: 0
 - **toc_lines_removed**: 22
-- **pii_removed**: 2
-- **ocr_noise_removed**: 4
-- **chunks_generated**: 65
-- **avg_chunk_size**: 406.08
+- **pii_removed**: 0
+- **ocr_noise_removed**: 17
+- **chunks_generated**: 94
+- **avg_chunk_size**: 388.35
 
 ## Dataset Insights
 
