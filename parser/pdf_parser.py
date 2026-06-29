@@ -9,7 +9,6 @@ class PDFParser(BaseParser):
         """
         解析 PDF 文件，将文本填充到 Document.raw_text 和 Document.pages
         """
-        print(f"345：{document.file_path}")
         if not os.path.exists(document.file_path):
             raise FileNotFoundError(f"{document.file_path} not found")
         

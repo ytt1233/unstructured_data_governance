@@ -11,6 +11,8 @@ from cleaners.pii_cleaner import PiiCleaner
 from cleaners.ocr_noise_cleaner import OCRNoiseCleaner
 from cleaners.toc_cleaner import TOCCleaner
 
+from extractors.document_hasher import DocumentHashExtractor
+
 from chunkers.fixed_chunker import FixedChunker
 
 from validators.metadata_validator import MetadataValidator
@@ -53,6 +55,9 @@ class PipelineManager:
             OCRNoiseCleaner(),
             PiiCleaner()
         ]
+
+        # ========= hash =========
+        self.hash_extractor = DocumentHashExtractor()
 
         # ========= Chunkers =========
         self.chunkers = [
@@ -115,30 +120,35 @@ class PipelineManager:
             document = cleaner.clean(document)
 
         # =========================
-        # 5. CHUNK
+        # 5. HASH
+        # =========================
+        document = self.hash_extractor.extract(document)
+
+        # =========================
+        # 6. CHUNK
         # =========================
         for chunker in self.chunkers:
             document = chunker.chunk(document)
 
         # =========================
-        # 6. VALIDATE
+        # 7. VALIDATE
         # =========================
         for validator in self.validators:
             document = validator.validate(document)
 
         # =========================
-        # 7. METRICS
+        # 8. METRICS
         # =========================
         for metric in self.metrics:
             document = metric.calculate(document)
 
         # =========================
-        # 8. REPORT
+        # 9. REPORT
         # =========================
         self.reporter.generate(document)
   
         # =========================
-        # 9. EXPORT
+        # 10. EXPORT
         # =========================
         for exporter in self.exporters:
             exporter.export(document)

@@ -31,13 +31,22 @@ Document / Metadata / Chunk
 
 ✓ 目录自动识别与清理
 
+✓ 文档Hash生成 
+
+✓ 数据集级重复文档检测 
+
+✓ 跨格式文档去重 
+
 
 # 3️⃣ 系统架构图（Architecture）
 
-<img src="./img/架构图.svg" width="600" height="400"> 
+<img src="./img/系统架构图.svg" width="800" height="600"> 
 
+# 4️⃣ 治理流程 （Pipeline Workflow）
 
-# 4️⃣ 核心能力（Core Capabilities）
+<img src="./img/Pipeline Workflow.svg" width="1000" height="200">  
+
+# 5️⃣ 核心能力（Core Capabilities）
 ## 1、元数据提取 
 
 <img src="./img/元数据提取前.png" width="400" height="300"> 
@@ -147,16 +156,25 @@ chunk生成后：
 <img src="./img/数据治理全链路审计2.png" width="400" height="300"> 
 
 ## 7、数据治理指标统计 
-作用：统计治理过程中的关键质量指标，
-量化评估数据治理效果，
-为治理优化和质量监控提供数据支撑。
+作用：统计治理过程中的关键质量指标，量化评估数据治理效果，为治理优化和质量监控提供数据支撑。
 
 <img src="./img/治理指标统计1.png" width="400" height="300"> 
 
-<img src="./img/治理指标统计2.png" width="400" height="300"> 
+<img src="./img/治理指标统计2.png" width="400" height="300">  
+
+## 8、数据集级重复文档检测   
+   
+- Exact Duplicate Detection
+作用：基于Document Hash自动识别完全重复文档
+
+- Cross-format Duplicate Detection
+作用: 自动识别PDF、DOCX、TXT等不同格式但内容相同的文档 
+
+<img src="./img/精确判重和不同格式判重.png" width="600" height="150"> 
 
 
-# 5️⃣ 快速开始（Quick Start）
+
+# 6️⃣ 快速开始（Quick Start）
 
 
 ## 1、下载代码
@@ -230,6 +248,7 @@ python main.py --input example_docs/raw_docs
 
 输出内容包括
 * Dataset Summary
+* Corpus Summary
 * Validation Summary
 * Governance Effectiveness
 * Dataset Insights
@@ -237,12 +256,12 @@ python main.py --input example_docs/raw_docs
 
 截图如下：
 
-<img src="./img/数据集治理结果1.png" width="400" height="300"> 
+<img src="./img/数据集报告1.png" width="400" height="300"> 
 
-<img src="./img/数据集治理结果2.png" width="400" height="300"> 
+<img src="./img/数据集报告2.png" width="400" height="300"> 
 
 
-# 6️⃣ jsonl 输出（Output Example）
+# 7️⃣ jsonl 输出（Output Example）
   
 治理完成后输出标准化知识库格式：
 
@@ -271,44 +290,57 @@ python main.py --input example_docs/raw_docs
 
 完整输出见：output/governed_docs
 
-# 7️⃣ 技术栈
-Language
+
+# 8️⃣ 技术栈
+### Programming Language
 - Python
 
-Document Processing
+### Document Processing
 - PyMuPDF
-- Regex
+- python-docx
+- Regular Expressions (Regex)
 
-Architecture
+### Data Governance
+- Document Hash (SHA-256)
+- Exact Duplicate Detection
+- Cross-format Document Deduplication
+
+### Data Processing
 - Pipeline Architecture
 - Dataclass Schema
+- Batch Dataset Processing
 
-Data Format
+### Data Format
 - JSON
 - JSONL
 
-Engineering
-- Audit Trail
+### Quality Assurance
 - Validation Framework
-- Metrics Framework      
+- Metrics Framework
+- Audit Trail
 
-# 8️⃣ 后续规划
+### Reporting
+- Document Report
+- Dataset Governance Report  
+
+
+# 9️⃣ 后续规划
 Roadmap
 
 V1.0 — Core Governance Pipeline
-✓ PDF Parser
-✓ Metadata Extraction
-✓ Header/Footer Cleaning
-✓ OCR Noise Cleaning
-✓ PII Masking
-✓ Chunk Generation
-✓ Validation Framework
-✓ Metrics Collection
-✓ Audit Trail
-✓ JSON Export
-✓ JSONL Export
-✓ Document Report
-✓ Dataset Report
+✓ PDF Parser 
+✓ Metadata Extraction 
+✓ Header/Footer Cleaning 
+✓ OCR Noise Cleaning 
+✓ PII Masking 
+✓ Chunk Generation 
+✓ Validation Framework 
+✓ Metrics Collection 
+✓ Audit Trail 
+✓ JSON Export 
+✓ JSONL Export 
+✓ Document Report 
+✓ Dataset Report 
 
 V1.1 — Multi-Format Governance
 ✓ TOC Cleaner
@@ -317,11 +349,11 @@ V1.1 — Multi-Format Governance
 ✓ Chunk Source Tracking
 
 V1.2 — Corpus Governance
-□ Exact Duplicate Detection
-□ Cross-format Document Deduplication
-□ Document Hash
-□ Corpus Metrics
-□ Corpus Report
+✓ Exact Duplicate Detection
+✓ Cross-format Document Deduplication
+✓ Document Hash
+✓ Corpus-level Statistics
+✓ Integrated Dataset Governance Report
 
 V1.3 — Advanced Document Understanding
 □ Table Extraction

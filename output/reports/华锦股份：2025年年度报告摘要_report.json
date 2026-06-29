@@ -1,20 +1,21 @@
 {
   "document_info": {
-    "doc_id": "盈康生命：2026年一季度报告",
-    "file_name": "盈康生命：2026年一季度报告.PDF",
+    "doc_id": "华锦股份：2025年年度报告摘要",
+    "file_name": "华锦股份：2025年年度报告摘要.PDF",
     "file_type": ".PDF",
-    "pages": 11,
-    "raw_chars": 11595,
-    "clean_chars": 10541
+    "pages": 3,
+    "raw_chars": 2912,
+    "clean_chars": 2808
   },
   "metadata": {
     "common": {
-      "page_count": 11,
-      "parser": "PyMuPDF"
+      "page_count": 3,
+      "parser": "PyMuPDF",
+      "document_hash": "3dfceba84fb1071ded4ae8affa504822fa0a029d236a56a192f6bbe9424b78ed"
     },
     "domain": {
-      "title": "盈康生命科技股份有限公司\n2026年第一季度报告",
-      "category": "法律"
+      "title": "北方华锦化学工业股份有限公司2025年年度报告摘要",
+      "category": "规划"
     }
   },
   "metrics": {
@@ -22,36 +23,36 @@
       "removed_toc_lines": 0
     },
     "chunk": {
-      "chunk_count": 30,
-      "avg_chunk_size": 381.8,
-      "min_chunk_size": 23,
+      "chunk_count": 7,
+      "avg_chunk_size": 429.43,
+      "min_chunk_size": 214,
       "max_chunk_size": 500
     },
     "text_quality": {
-      "chars_before": 11595,
-      "chars_after": 10874,
-      "removed_chars": 721,
-      "char_reduction_rate": "6.22%",
-      "blank_lines_before": 258,
+      "chars_before": 2912,
+      "chars_after": 2908,
+      "removed_chars": 4,
+      "char_reduction_rate": "0.14%",
+      "blank_lines_before": 3,
       "blank_lines_after": 0,
-      "blank_lines_removed": 258
+      "blank_lines_removed": 3
     },
     "header_footer": {
-      "removed_headers": 17,
+      "removed_headers": 3,
       "removed_footers": 0,
-      "total_pages": 11
+      "total_pages": 3
     },
     "pii": {
       "phone_count": 0,
-      "email_count": 0,
+      "email_count": 1,
       "id_card_count": 0,
-      "total_pii": 0
+      "total_pii": 1
     },
     "ocr_noise": {
-      "text_length_before": 10554,
-      "text_length_after": 10541,
-      "removed_noise_chars": 13,
-      "noise_ratio": "0.12%"
+      "text_length_before": 2827,
+      "text_length_after": 2820,
+      "removed_noise_chars": 7,
+      "noise_ratio": "0.25%"
     }
   },
   "validation": {
@@ -72,7 +73,7 @@
       "content_length": {
         "rule": "minimum_content_length",
         "status": "PASS",
-        "length": 10541,
+        "length": 2808,
         "min_length": 100,
         "warnings": []
       },
@@ -80,58 +81,26 @@
         "rule": "ocr_noise_detection",
         "status": "PASS",
         "noise_chars": 0,
-        "total_chars": 10541,
+        "total_chars": 2808,
         "noise_ratio": 0.0,
         "warnings": []
       },
       "header_footer": {
         "rule": "repeated_line_detection",
         "status": "PASS",
-        "suspicious_count": 25,
+        "suspicious_count": 2,
         "suspicious_lines": [
           {
-            "text": "496,394,394.50",
-            "count": 3
-          },
-          {
-            "text": "409,036,863.19",
-            "count": 3
-          },
-          {
-            "text": "0.0346",
+            "text": "0427-5855742",
             "count": 4
           },
           {
-            "text": "0.0404",
-            "count": 4
-          },
-          {
-            "text": "4,173,182,126.41",
-            "count": 3
-          },
-          {
-            "text": "4,192,584,616.26",
-            "count": 3
-          },
-          {
-            "text": "适用 不适用",
-            "count": 3
-          },
-          {
-            "text": "1,434,258.64",
-            "count": 3
-          },
-          {
-            "text": "适用 不适用",
-            "count": 7
-          },
-          {
-            "text": "境内自然人",
-            "count": 6
+            "text": "0 不适用",
+            "count": 10
           }
         ],
         "warnings": [
-          "25 repeated lines detected"
+          "2 repeated lines detected"
         ]
       },
       "toc": {
@@ -141,11 +110,9 @@
       "chunk": {
         "rule": "chunk_integrity",
         "status": "PASS",
-        "chunk_count": 30,
+        "chunk_count": 7,
         "empty_chunk_count": 0,
-        "warnings": [
-          "Small chunk detected: 23 chars"
-        ]
+        "warnings": []
       },
       "pii": {
         "rule": "pii_masking_validation",
@@ -175,9 +142,9 @@
     },
     {
       "action": "header_footer_clean",
-      "removed_headers": 17,
+      "removed_headers": 3,
       "removed_footers": 0,
-      "total_pages": 11
+      "total_pages": 3
     },
     {
       "action": "toc_clean",
@@ -185,21 +152,31 @@
     },
     {
       "action": "ocr_noise_clean",
-      "removed_noise_chars": 13
+      "removed_noise_chars": 7
     },
     {
       "action": "pii_clean",
       "phone_count": 0,
-      "email_count": 0,
+      "email_count": 1,
       "id_card_count": 0
+    },
+    {
+      "action": "document_hash",
+      "document_hash": "3dfceba84fb1071ded4ae8affa504822fa0a029d236a56a192f6bbe9424b78ed"
     },
     {
       "action": "fixed_chunk",
       "strategy": "fixed",
       "configured_chunk_size": 500,
       "overlap": 50,
-      "chunk_count": 30
+      "chunk_count": 7
     }
   ],
-  "sample_records": []
+  "sample_records": [
+    {
+      "type": "pii_email",
+      "before": "huajincorp@163.com",
+      "after": "h***@163.com"
+    }
+  ]
 }

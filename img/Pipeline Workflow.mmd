@@ -1,0 +1,46 @@
+
+flowchart LR
+
+A["📥 Load"]
+
+B["📄 Parse"]
+
+C["🏷 Metadata Extraction"]
+
+D["🧹 Data Cleaning"]
+
+E["🔑 Document Hash"]
+
+F["✂ Chunk Generation"]
+
+G["✅ Validation"]
+
+H["📊 Metrics"]
+
+I["📝 Document Report"]
+
+J["📤 JSON / JSONL Export"]
+
+A --> B
+
+B --> C
+
+C --> D
+
+D --> E
+
+E --> F
+
+F --> G
+
+G --> H
+
+H --> I
+
+I --> J
+
+classDef governance fill:#EAF4FF,stroke:#3B82F6,stroke-width:2px;
+classDef output fill:#F4F4F4,stroke:#666666,stroke-width:2px;
+
+class A,B,C,D,E,F,G,H governance
+class I,J output

@@ -1,0 +1,47 @@
+flowchart TB
+
+INPUT["📂 Input Documents<br/>PDF / DOCX / TXT"]
+
+RUNNER["📦 Dataset Runner"]
+
+PIPELINE["📄 Pipeline Manager"]
+
+DOC["📑 Governed Document"]
+
+REPORT["📊 Document Report"]
+
+JSON["📄 JSON"]
+
+JSONL["📚 JSONL"]
+
+CORPUS["📚 Corpus Governance
+────────────
+• Exact Duplicate Detection
+• Cross-format Deduplication
+• Corpus Statistics"]
+
+DATASET["📈 Dataset Governance Report"]
+
+INPUT --> RUNNER
+
+RUNNER --> PIPELINE
+
+PIPELINE --> DOC
+
+DOC --> REPORT
+DOC --> JSON
+DOC --> JSONL
+
+RUNNER --> CORPUS
+
+DOC -. Document Objects .-> CORPUS
+
+CORPUS --> DATASET
+
+classDef governance fill:#EAF4FF,stroke:#3B82F6,stroke-width:2px;
+classDef corpus fill:#F5EEFF,stroke:#8B5CF6,stroke-width:2px;
+classDef output fill:#F4F4F4,stroke:#666666,stroke-width:2px;
+
+class PIPELINE,DOC governance
+class CORPUS corpus
+class REPORT,JSON,JSONL,DATASET output

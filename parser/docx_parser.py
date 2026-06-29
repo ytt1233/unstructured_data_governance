@@ -10,7 +10,6 @@ class DOCXParser(BaseParser):
         """
         解析 DOCX 文件
         """
-        print(f"234")
 
         doc = DocxDocument(document.file_path)
 

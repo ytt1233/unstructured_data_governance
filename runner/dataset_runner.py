@@ -5,6 +5,8 @@ from pathlib import Path
 from pipeline.pipeline_manager import PipelineManager
 from schema.document import Document
 from report.dataset_report_generator import DatasetReportGenerator
+from governance.duplicate_detector import DuplicateDetector
+from governance.cross_format_detector import CrossFormatDuplicateDetector
 
 SUPPORTED_TYPES = (
     ".pdf",
@@ -21,6 +23,12 @@ class DatasetRunner:
         # dataset级统计
         self.results: List[Document] = []
         self.failed_files: List[str] = []
+
+        # ========= Corpus Governance =========
+        self.duplicate_detector = DuplicateDetector()
+        self.cross_format_detector = CrossFormatDuplicateDetector()
+        self.exact_duplicates  = {}
+        self.cross_format_duplicates = []
 
         self.dataset_reporter = DatasetReportGenerator()
 
@@ -47,6 +55,37 @@ class DatasetRunner:
                 print(f"[ERROR] Failed: {file_path} -> {e}")
 
                 self.failed_files.append(file_path)
+
+        # =========================
+        # Corpus Governance
+        # =========================
+
+        self.exact_duplicates = self.duplicate_detector.detect(
+            self.results    
+        )
+
+        self.cross_format_duplicates = (
+            self.cross_format_detector.detect(
+                self.results
+            )
+        )
+        print("\n=== Exact Duplicate Documents ===")
+
+        for hash_value, docs in self.exact_duplicates.items():
+            print(f"\nHash: {hash_value}")
+
+            for doc in docs:
+                print(f"  - {doc.file_name}")
+
+        print("\n=== Cross-format Duplicate Documents ===")
+
+        for item in self.cross_format_duplicates:
+
+            print(
+                f"{item['doc1']} <-> "
+                f"{item['doc2']}  "
+                f"Similarity: {item['similarity']:.4f}"
+            )
 
         # =========================
         # dataset summary
@@ -92,12 +131,23 @@ class DatasetRunner:
                     4
                 ) if (total + failed) else 0
             },
+            "corpus_summary":
+                self._build_corpus_summary(),
 
             "validation_summary":
                 self._build_validation_summary(),
 
             "governance_effectiveness":
                 self._build_governance_effectiveness(),
+            
+            "duplicate_details": {
+
+                "exact_duplicates":
+                    self.exact_duplicates,
+
+                "cross_format_duplicates":
+                    self.cross_format_duplicates
+            },
 
             "dataset_insights":
                 self._build_dataset_insights(),
@@ -133,6 +183,55 @@ class DatasetRunner:
                     validation_stats[k][status] += 1
 
         return validation_stats
+
+    # =========================
+    # dataset report 中的corpus_summary
+    # ========================= 
+    def _build_corpus_summary(self):
+
+        total_documents = len(self.results)
+
+        # Exact Duplicate
+        exact_duplicate_documents = sum(
+            len(group) - 1
+            for group in self.exact_duplicates.values()
+        )
+
+        exact_duplicate_groups = len(
+            self.exact_duplicates
+        )
+
+        # Cross-format Duplicate
+        cross_format_duplicate_groups = len(
+            self.cross_format_duplicates
+        )
+
+        unique_documents = (
+            total_documents
+            - exact_duplicate_documents
+        )
+
+        duplicate_rate = (
+            exact_duplicate_documents / total_documents
+            if total_documents else 0
+        )
+
+        return {
+            "total_documents": total_documents,
+            "unique_documents": unique_documents,
+
+            "exact_duplicate_documents":
+                exact_duplicate_documents,
+
+            "exact_duplicate_groups":
+                exact_duplicate_groups,
+
+            "cross_format_duplicate_groups":
+                cross_format_duplicate_groups,
+
+            "duplicate_rate":
+                round(duplicate_rate, 4)
+        }
 
     # =========================
     # dataset report 中的metrics summary
@@ -483,6 +582,10 @@ class DatasetRunner:
 
         print("\n[Dataset Summary]")
         for k, v in report["dataset_summary"].items():
+            print(f"  {k}: {v}")
+            
+        print("\n[Corpus Summary]")
+        for k, v in report["corpus_summary"].items():
             print(f"  {k}: {v}")
 
         print("\n[Validation Summary]")

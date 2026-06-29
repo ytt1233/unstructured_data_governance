@@ -1,19 +1,20 @@
 {
   "document_info": {
     "doc_id": "2024年第二季度战略复盘暨第三季度工作部署会议纪要",
-    "file_name": "2024年第二季度战略复盘暨第三季度工作部署会议纪要.docx",
-    "file_type": ".docx",
-    "pages": 1,
-    "raw_chars": 5143,
-    "clean_chars": 5142
+    "file_name": "2024年第二季度战略复盘暨第三季度工作部署会议纪要.pdf",
+    "file_type": ".pdf",
+    "pages": 6,
+    "raw_chars": 5538,
+    "clean_chars": 5455
   },
   "metadata": {
     "common": {
-      "page_count": 1,
-      "parser": "python-docx"
+      "page_count": 6,
+      "parser": "PyMuPDF",
+      "document_hash": "45ece6c59ff33fd57f4c2d84ee8dc8582b092a8ccd42a0d32e089de78da4b715"
     },
     "domain": {
-      "title": "宏达智能科技公司",
+      "title": "宏达智能科技公司\n2024 年第二季度战略复盘暨第三季度工作部署会议纪要",
       "category": "规划"
     }
   },
@@ -22,24 +23,24 @@
       "removed_toc_lines": 0
     },
     "chunk": {
-      "chunk_count": 12,
-      "avg_chunk_size": 474.33,
-      "min_chunk_size": 192,
+      "chunk_count": 16,
+      "avg_chunk_size": 369.44,
+      "min_chunk_size": 11,
       "max_chunk_size": 500
     },
     "text_quality": {
-      "chars_before": 5143,
-      "chars_after": 5142,
-      "removed_chars": 1,
-      "char_reduction_rate": "0.02%",
-      "blank_lines_before": 0,
+      "chars_before": 5538,
+      "chars_after": 5530,
+      "removed_chars": 8,
+      "char_reduction_rate": "0.14%",
+      "blank_lines_before": 6,
       "blank_lines_after": 0,
-      "blank_lines_removed": 0
+      "blank_lines_removed": 6
     },
     "header_footer": {
-      "removed_headers": 0,
+      "removed_headers": 7,
       "removed_footers": 0,
-      "total_pages": 1
+      "total_pages": 6
     },
     "pii": {
       "phone_count": 0,
@@ -48,8 +49,8 @@
       "total_pii": 0
     },
     "ocr_noise": {
-      "text_length_before": 5142,
-      "text_length_after": 5142,
+      "text_length_before": 5455,
+      "text_length_after": 5455,
       "removed_noise_chars": 0,
       "noise_ratio": "0.0%"
     }
@@ -72,7 +73,7 @@
       "content_length": {
         "rule": "minimum_content_length",
         "status": "PASS",
-        "length": 5142,
+        "length": 5455,
         "min_length": 100,
         "warnings": []
       },
@@ -80,7 +81,7 @@
         "rule": "ocr_noise_detection",
         "status": "PASS",
         "noise_chars": 0,
-        "total_chars": 5142,
+        "total_chars": 5455,
         "noise_ratio": 0.0,
         "warnings": []
       },
@@ -98,9 +99,11 @@
       "chunk": {
         "rule": "chunk_integrity",
         "status": "PASS",
-        "chunk_count": 12,
+        "chunk_count": 16,
         "empty_chunk_count": 0,
-        "warnings": []
+        "warnings": [
+          "Small chunk detected: 11 chars"
+        ]
       },
       "pii": {
         "rule": "pii_masking_validation",
@@ -114,7 +117,7 @@
   },
   "audit_trail": [
     {
-      "action": "docx_parse"
+      "action": "pdf_parse"
     },
     {
       "action": "metadata_extract"
@@ -130,9 +133,9 @@
     },
     {
       "action": "header_footer_clean",
-      "removed_headers": 0,
+      "removed_headers": 7,
       "removed_footers": 0,
-      "total_pages": 1
+      "total_pages": 6
     },
     {
       "action": "toc_clean",
@@ -149,11 +152,15 @@
       "id_card_count": 0
     },
     {
+      "action": "document_hash",
+      "document_hash": "45ece6c59ff33fd57f4c2d84ee8dc8582b092a8ccd42a0d32e089de78da4b715"
+    },
+    {
       "action": "fixed_chunk",
       "strategy": "fixed",
       "configured_chunk_size": 500,
       "overlap": 50,
-      "chunk_count": 12
+      "chunk_count": 16
     }
   ],
   "sample_records": []

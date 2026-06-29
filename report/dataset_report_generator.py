@@ -44,6 +44,22 @@ class DatasetReportGenerator:
             )
 
         # =========================
+        # Corpus Summary
+        # =========================
+
+        lines.append(
+            "\n## Corpus Summary\n"
+        )
+
+        for k, v in report[
+            "corpus_summary"
+        ].items():
+
+            lines.append(
+                f"- **{k}**: {v}"
+            )
+
+        # =========================
         # Validation Summary
         # =========================
 
